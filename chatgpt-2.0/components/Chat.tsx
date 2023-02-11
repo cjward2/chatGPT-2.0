@@ -14,6 +14,7 @@ interface ChatProps {
 
 const Chat = ({ chatId }: ChatProps) => {
   const { data: session } = useSession();
+  const scrollableRef = React.useRef<HTMLDivElement | null>(null);
 
   const [messages, lodaing] = useCollection(
     session &&
@@ -30,6 +31,10 @@ const Chat = ({ chatId }: ChatProps) => {
       )
   );
 
+  React.useEffect(() => {
+    scrollableRef?.current?.scrollIntoView();
+  }, [messages?.docs?.length]);
+
   return (
     <div className="flex-1 overflow-y-auto overflow-x-hidden">
       {messages?.empty && (
@@ -43,6 +48,7 @@ const Chat = ({ chatId }: ChatProps) => {
       {messages?.docs.map((message) => (
         <Message key={message.id} message={message.data()} />
       ))}
+      <div ref={scrollableRef} />
     </div>
   );
 };
