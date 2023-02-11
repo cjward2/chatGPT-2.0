@@ -10,6 +10,7 @@ const Temperature = () => {
     const storedTemperature = window.localStorage.getItem("temperature");
 
     if (!storedTemperature) {
+      //default to 0.9
       window.localStorage.setItem("temperature", "0.9");
       setTemperature("0.9");
     } else {
