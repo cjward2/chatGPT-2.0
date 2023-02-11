@@ -24,6 +24,11 @@ const ModelSelection = () => {
         menuPosition="fixed"
         classNames={{
           control: (_state) => "bg-[#434654] border-[#434654]",
+          placeholder: (_state) => "text-white",
+          singleValue: (_state) => "text-white",
+          input: (_state) => "text-white",
+          option: (_state) =>
+            "bg-[#434654] text-white hover:cursor-pointer hover:font-bold",
         }}
         onChange={(e) => setModel(e.value)}
       />
