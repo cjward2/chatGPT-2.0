@@ -23,8 +23,8 @@ const ChatInput = ({ chatId }: ChatInputProps) => {
   });
 
   const temperature = React.useMemo(() => {
-    return window.localStorage.getItem("temperature");
-  }, []);
+    return window.localStorage.getItem(`${session?.user?.email}-temperature`);
+  }, [session]);
 
   const sendMessage = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();

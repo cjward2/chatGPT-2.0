@@ -1,29 +1,37 @@
 "use client";
+import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import React from "react";
 
 const Temperature = () => {
   const [temperature, setTemperature] = React.useState("");
+  const { data: session } = useSession();
   const router = useRouter();
 
   React.useEffect(() => {
-    const storedTemperature = window.localStorage.getItem("temperature");
+    if (!session) return;
+    const storedTemperature = window.localStorage.getItem(
+      `${session?.user?.email}-temperature`
+    );
 
     if (!storedTemperature) {
       //default to 0.9
-      window.localStorage.setItem("temperature", "0.9");
+      window.localStorage.setItem(`${session?.user?.email}-temperature`, "0.9");
       setTemperature("0.9");
     } else {
       setTemperature(storedTemperature);
     }
-  }, []);
+  }, [session]);
 
   const handleTemperatureChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTemperature(e.target.value);
   };
 
   const handleSaveTemperature = () => {
-    window.localStorage.setItem("temperature", temperature);
+    window.localStorage.setItem(
+      `${session?.user?.email}-temperature`,
+      temperature
+    );
     router.push("/");
   };
 
