@@ -22,6 +22,10 @@ const ChatInput = ({ chatId }: ChatInputProps) => {
     fallbackData: "text-davinci-003",
   });
 
+  const temperature = React.useMemo(() => {
+    return window.localStorage.getItem("temperature");
+  }, []);
+
   const sendMessage = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!prompt) return;
@@ -66,6 +70,7 @@ const ChatInput = ({ chatId }: ChatInputProps) => {
         chatId,
         model,
         session,
+        temperature: Number(temperature),
       }),
     }).then(() => {
       // Toast notifccation to say succesful

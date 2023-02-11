@@ -1,11 +1,15 @@
 import openai from "./chatgpt";
 
-const chatGptQuery = async (prompt: string, model: string) => {
+const chatGptQuery = async (
+  prompt: string,
+  model: string,
+  temperature: number | null
+) => {
   const res = await openai
     .createCompletion({
       model,
       prompt,
-      temperature: 0.9, //this value sets the creativity vs logical settings of the model
+      temperature: temperature ?? 0.9, //this value sets the creativity vs logical settings of the model
       top_p: 1,
       max_tokens: 1000,
       frequency_penalty: 0,

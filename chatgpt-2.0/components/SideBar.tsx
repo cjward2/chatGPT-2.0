@@ -7,6 +7,7 @@ import { collection, orderBy, query } from "firebase/firestore";
 import { db } from "../firebase";
 import ChatRow from "./ChatRow";
 import ModelSelection from "./ModelSelection";
+import Link from "next/link";
 
 const SideBar = () => {
   const { data: session } = useSession();
@@ -42,12 +43,22 @@ const SideBar = () => {
         </div>
       </div>
       {session && (
-        <img
-          onClick={() => signOut()}
-          className="h-12 w-12 rounded-full cursor-pointer mx-auto mb-2 hover:opacity-50"
-          src={session.user?.image!}
-          alt="profile picture"
-        />
+        <div className="text-white mb-2 flex flex-wrap gap-2 justify-center">
+          <span className="hover:opacity-50 cursor-pointer">
+            <Link href="/">Home</Link>
+          </span>
+          <span className="hidden sm:inline">|</span>
+          <span className="hover:opacity-50 cursor-pointer">
+            <Link href="/settings">Settings</Link>
+          </span>
+          <span className="hidden sm:inline">|</span>
+          <span
+            onClick={() => signOut()}
+            className="hover:opacity-50 cursor-pointer"
+          >
+            Sign out
+          </span>
+        </div>
       )}
     </div>
   );
